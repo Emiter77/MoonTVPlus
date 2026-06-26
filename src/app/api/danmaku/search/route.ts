@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
     const timeoutId = setTimeout(() => controller.abort(), 300 * 1000); // 300秒超时
 
     try {
+      console.log('apiUrl: ', apiUrl);
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
