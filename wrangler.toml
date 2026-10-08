@@ -3,6 +3,7 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 main = ".open-next/worker.js"
 minify = true
+account_id = "0c5d103f582455193b719fdabe265072"
 
 # 静态资源配置
 # Cloudflare Workers Assets 用于服务静态文件
