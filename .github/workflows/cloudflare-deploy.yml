@@ -147,9 +147,6 @@ jobs:
       - name: Build for Cloudflare
         run: pnpm run build:cloudflare
 
-      - name: Install Wrangler
-        run: pnpm add -g wrangler@4.60.0
-
       - name: Run D1 Database Migrations
         run: |
           STORAGE_TYPE="${{ secrets.NEXT_PUBLIC_STORAGE_TYPE }}"
@@ -166,10 +163,11 @@ jobs:
 
           echo "Running D1 database migrations..."
 
+          # 使用 npx wrangler 而非全局安装的 wrangler，避免和 action 的 token 管理冲突
           for migration_file in ./migrations/*.sql; do
             if [ -f "$migration_file" ]; then
               echo "Executing migration: $(basename $migration_file)"
-              wrangler d1 execute moontvplus --remote --file="$migration_file" || echo "⚠️ Migration may have been skipped (already applied)"
+              npx wrangler@4.60.0 d1 execute moontvplus --remote --file="$migration_file" || echo "⚠️ Migration may have been skipped (already applied)"
             fi
           done
 
